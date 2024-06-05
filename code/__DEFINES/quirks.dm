@@ -22,6 +22,7 @@
 #define QUIRK_DEAF "Глухота"
 #define QUIRK_SEIZURES "Эпилепсия"
 #define QUIRK_FATNESS "Полнота"
+#define QUIRK_TALLNESS "Худощавость"
 #define QUIRK_TOURETTE "Синдром Туретта"
 #define QUIRK_NEARSIGHTED "Близорукость"
 #define QUIRK_NERVOUS "Нервозность"

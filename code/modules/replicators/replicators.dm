@@ -361,7 +361,6 @@ ADD_TO_GLOBAL_LIST(/mob/living/simple_animal/hostile/replicator, alive_replicato
 		return
 	RAI.next_music_start = world.time + REPLICATOR_MUSIC_LENGTH
 
-	playsound_local(null, 'sound/music/storm_resurrection.ogg', VOL_MUSIC, null, null, CHANNEL_MUSIC, vary = FALSE, frequency = null, ignore_environment = TRUE)
 
 /mob/living/simple_animal/hostile/replicator/Logout()
 	..()

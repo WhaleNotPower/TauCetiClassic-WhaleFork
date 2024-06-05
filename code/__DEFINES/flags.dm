@@ -37,6 +37,7 @@ var/global/list/bitflags = list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 
 #define BLOCK_GAS_SMOKE_EFFECT (1<<11)  // Blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY! (NOTE: flag shared with ONESIZEFITSALL)
 #define ONESIZEFITSALL         (1<<11)  // Clothing. Acceptable for a fat mob
+#define TALLFORALL			   (1<<11)  // Clothing. Acceptable for a tall mob
 
 #define PHORONGUARD            (1<<12)  // Does not get contaminated by phoron.
 #define NOREACT                (1<<12)  // Reagents dont' react inside this container.

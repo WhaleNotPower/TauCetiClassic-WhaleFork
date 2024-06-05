@@ -141,7 +141,7 @@
 	icon_state = "yellow"
 	requires_power = 0
 	dynamic_lighting = TRUE
-	looped_ambience = 'sound/music/space_oddity.ogg'
+
 
 /area/space_structures/derelict_lab
 	name = "Abandoned Lab"

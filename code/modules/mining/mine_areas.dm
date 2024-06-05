@@ -25,7 +25,6 @@
 		'sound/ambience/space_6.ogg',
 		'sound/ambience/space_7.ogg',
 		'sound/ambience/space_8.ogg',
-		'sound/music/dwarf_fortress.ogg'
 	)
 
 
@@ -42,7 +41,6 @@
 		'sound/ambience/space_6.ogg',
 		'sound/ambience/space_7.ogg',
 		'sound/ambience/space_8.ogg',
-		'sound/music/dwarf_fortress.ogg'
 	)
 
 	var/static/list/mob_spawn_list = list(

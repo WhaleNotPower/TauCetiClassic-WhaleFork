@@ -49,19 +49,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/PreInit()
 	login_music = pick(\
-	'sound/music/1.ogg',\
-	'sound/music/space.ogg',\
-	'sound/music/clouds.s3m',\
-	'sound/music/title1.ogg',\
-	'sound/music/space_oddity.ogg',\
-	'sound/music/b12_combined_start.ogg',\
-	'sound/music/title2.ogg',\
-	'sound/music/traitor.ogg',\
-	'sound/lobby/sundown.ogg',\
-	'sound/lobby/hanging_masses.ogg',\
-	'sound/lobby/admiral-station-13.ogg',\
-	'sound/lobby/robocop_gb_intro.ogg')
-
+	'sound/lobby/Lobby_amb2.1.ogg')
 
 /datum/controller/subsystem/ticker/Initialize(timeofday)
 	global.syndicate_code_phrase = generate_code_phrase()
@@ -618,7 +606,6 @@ SUBSYSTEM_DEF(ticker)
 		M.mind.transfer_to(L)
 	else
 		L.key = M.key
-	L.playsound_local(null, 'sound/lobby/Thunderdome.ogg', VOL_MUSIC, vary = FALSE, frequency = null, ignore_environment = TRUE)
 	L.equipOutfit(/datum/outfit/arena)
 	L.name = L.key
 	L.real_name = L.name

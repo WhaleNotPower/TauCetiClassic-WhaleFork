@@ -99,7 +99,7 @@ Please contact me on #coderbus IRC. ~Carn x
 	var/icon_path = def_icon_path
 
 	var/t_state
-	if(sprite_sheet_slot in list(SPRITE_SHEET_HELD, SPRITE_SHEET_GLOVES, SPRITE_SHEET_BELT, SPRITE_SHEET_UNIFORM, SPRITE_SHEET_UNIFORM_FAT))
+	if(sprite_sheet_slot in list(SPRITE_SHEET_HELD, SPRITE_SHEET_GLOVES, SPRITE_SHEET_BELT, SPRITE_SHEET_UNIFORM, SPRITE_SHEET_UNIFORM_FAT, SPRITE_SHEET_UNIFORM_TALL))
 		t_state = item_state
 		if(!icon_custom)
 			icon_state_appendix = null
@@ -172,7 +172,6 @@ Please contact me on #coderbus IRC. ~Carn x
 //BASE MOB SPRITE
 /mob/living/carbon/human/proc/update_body()
 	remove_standing_overlay(BODY_LAYER)
-
 	var/fat = HAS_TRAIT(src, TRAIT_FAT) ? "fat" : null
 	var/g = (gender == FEMALE ? "f" : "m")
 
@@ -426,6 +425,116 @@ Please contact me on #coderbus IRC. ~Carn x
 			if(U.flags & ONESIZEFITSALL)
 				default_path = 'icons/mob/uniform_fat.dmi'
 				uniform_sheet = SPRITE_SHEET_UNIFORM_FAT
+			else
+				to_chat(src, "<span class='warning'>You burst out of \the [U]!</span>")
+				drop_from_inventory(U)
+				return
+		var/image/standing = U.get_standing_overlay(src, default_path, uniform_sheet, -UNIFORM_LAYER, "uniformblood")
+		standing = update_height(standing)
+		standing.pixel_x += species.offset_features[OFFSET_UNIFORM][1]
+		standing.pixel_y += species.offset_features[OFFSET_UNIFORM][2]
+		overlays_standing[UNIFORM_LAYER] = standing
+
+		for(var/obj/item/clothing/accessory/A in U.accessories)
+			var/t_state = A.icon_state
+			var/icon_path = 'icons/mob/accessory.dmi'
+
+			if(A.icon_custom)
+				t_state += "_mob"
+				icon_path = A.icon_custom
+
+			if(gender == FEMALE && species.gender_limb_icons)
+				if("[t_state]_fem" in icon_states(icon_path))
+					t_state += "_fem"
+
+			var/image/accessory
+			accessory = image("icon" = icon_path, "icon_state" = t_state, "layer" = -UNIFORM_LAYER + A.layer_priority)
+			accessory.color = A.color
+			accessory = human_update_offset(accessory, TRUE)
+			standing.add_overlay(accessory)
+	else
+		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
+		for(var/obj/item/thing in list(r_store, l_store, wear_id, belt))						//
+			drop_from_inventory(thing)
+
+	apply_standing_overlay(UNIFORM_LAYER)
+
+
+/mob/living/carbon/human/update_inv_wear_id()
+	remove_standing_overlay(ID_LAYER)
+	if(wear_id)
+		wear_id.screen_loc = ui_id
+		if(client && hud_used)
+			client.screen += wear_id
+		var/image/standing = image("icon"='icons/mob/mob.dmi', "icon_state"="id", "layer"=-ID_LAYER)
+		standing = human_update_offset(standing, TRUE)
+		standing.pixel_x += species.offset_features[OFFSET_ID][1]
+		standing.pixel_y += species.offset_features[OFFSET_ID][2]
+		overlays_standing[ID_LAYER]	= standing
+
+	apply_standing_overlay(ID_LAYER)
+
+/mob/living/carbon/human/update_inv_gloves()
+	remove_standing_overlay(GLOVES_LAYER)
+	if(gloves)
+		if(client && hud_used && hud_used.hud_shown)
+			if(hud_used.inventory_shown)			//if the inventory is open ...
+				gloves.screen_loc = ui_gloves		//...draw the item in the inventory screen
+			client.screen += gloves					//Either way, add the item to the HUD
+
+		var/image/standing = gloves.get_standing_overlay(src, 'icons/mob/hands.dmi', SPRITE_SHEET_GLOVES, -GLOVES_LAYER, "bloodyhands")
+		standing = human_update_offset(standing, FALSE)
+		standing.pixel_x += species.offset_features[OFFSET_GLOVES][1]
+		standing.pixel_y += species.offset_features[OFFSET_GLOVES][2]
+		overlays_standing[GLOVES_LAYER] = standing
+	else
+		if(blood_DNA)
+			var/image/bloodsies	= image("icon"='icons/effects/blood.dmi', "icon_state" = species.specie_hand_blood_state)
+			bloodsies.color = hand_dirt_datum.color
+			bloodsies = human_update_offset(bloodsies, FALSE)
+			bloodsies.pixel_x += species.offset_features[OFFSET_GLOVES][1]
+			bloodsies.pixel_y += species.offset_features[OFFSET_GLOVES][2]
+			overlays_standing[GLOVES_LAYER]	= bloodsies
+
+	apply_standing_overlay(GLOVES_LAYER)
+
+
+/mob/living/carbon/human/update_inv_glasses()
+	remove_standing_overlay(GLASSES_LAYER)
+
+	if(glasses)
+		if(client && hud_used && hud_used.hud_shown)
+			if(hud_used.inventory_shown)			//if the inventory is open ...
+				glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
+			client.screen += glasses				//Either way, add the item to the HUD
+
+		var/image/standing = glasses.get_standing_overlay(src, 'icons/mob/eyes.dmi', SPRITE_SHEET_EYES, -GLASSES_LAYER)
+		standing = human_update_offset(standing, TRUE)
+		standing.pixel_x += species.offset_features[OFFSET_GLASSES][1]
+		standing.pixel_y += species.offset_features[OFFSET_GLASSES][2]
+		overlays_standing[GLASSES_LAYER] = standing
+
+	apply_standing_overlay(GLASSES_LAYER)
+
+/mob/living/carbon/human/update_inv_w_uniform()
+	remove_standing_overlay(UNIFORM_LAYER)
+
+	var/default_path = 'icons/mob/uniform.dmi'
+	var/uniform_sheet = SPRITE_SHEET_UNIFORM
+	if(isunder(w_uniform))
+		if(client && hud_used && hud_used.hud_shown)
+			if(hud_used.inventory_shown)			//if the inventory is open ...
+				w_uniform.screen_loc = ui_iclothing //...draw the item in the inventory screen
+			client.screen += w_uniform				//Either way, add the item to the HUD
+
+		var/obj/item/clothing/under/U = w_uniform
+		if (wear_suit && (wear_suit.flags & BLOCKUNIFORM)) // Skip uniform overlay on suit full cover
+			return
+
+		if(HAS_TRAIT(src, TRAIT_TALL))
+			if(U.flags & TALLFORALL)
+				default_path = 'icons/mob/uniform_tall.dmi'
+				uniform_sheet = SPRITE_SHEET_UNIFORM_TALL
 			else
 				to_chat(src, "<span class='warning'>You burst out of \the [U]!</span>")
 				drop_from_inventory(U)

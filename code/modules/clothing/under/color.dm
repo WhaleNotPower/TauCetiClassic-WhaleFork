@@ -2,7 +2,7 @@
 	name = "black jumpsuit"
 	icon_state = "black"
 	item_state = "black"
-	flags = ONESIZEFITSALL|HEAR_TALK
+	flags = ONESIZEFITSALL|HEAR_TALK|TALLFORALL
 
 /obj/item/clothing/under/color/blackf
 	name = "feminine black jumpsuit"

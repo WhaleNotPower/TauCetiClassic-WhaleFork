@@ -138,6 +138,7 @@
 #define TRAIT_DEAF                "deaf"
 #define TRAIT_EPILEPSY            "epilepsy"
 #define TRAIT_FAT                 "fatness"
+#define TRAIT_TALL				  "tallness"
 #define TRAIT_HIGH_PAIN_THRESHOLD "high_pain_threshold"
 #define TRAIT_LIGHT_DRINKER       "light_drinker"
 #define TRAIT_LOW_PAIN_THRESHOLD  "low_pain_threshold"

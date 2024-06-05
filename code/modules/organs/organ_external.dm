@@ -145,7 +145,7 @@
 
 // Keep in mind that this proc should work even if owner = null
 /obj/item/organ/external/proc/update_sprite()
-	var/gender = owner ? owner.gender : MALE
+	var/gender = owner ? owner.gender : FEMALE
 	var/mutations = owner ? owner.mutations : list()
 	var/fat = null
 	var/g
@@ -156,6 +156,12 @@
 			fat = "fat"
 		else if(species.fat_limb_icons == TRUE && (body_zone in list(BP_GROIN, BP_HEAD, BP_R_ARM, BP_L_ARM, BP_R_LEG, BP_L_LEG)))
 			fat = "fat"
+
+	if(owner && HAS_TRAIT(owner, TRAIT_TALL))
+		if(body_zone == BP_CHEST)
+			fat = "tall"
+		else if(species.fat_limb_icons == TRUE && (body_zone in list(BP_GROIN, BP_HEAD, BP_R_ARM, BP_L_ARM, BP_R_LEG, BP_L_LEG)))
+			fat = "tall"
 
 	if(body_zone in list(BP_CHEST, BP_GROIN, BP_HEAD))
 		g = (gender == FEMALE ? "f" : "m")

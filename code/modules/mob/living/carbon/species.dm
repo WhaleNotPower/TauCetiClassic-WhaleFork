@@ -94,6 +94,7 @@
 		SPRITE_SHEET_HELD = 'icons/mob/path',
 		SPRITE_SHEET_UNIFORM = 'icons/mob/path',
 		SPRITE_SHEET_UNIFORM_FAT = 'icons/mob/path',
+		SPTIRE_SHEET_UNIFORM_TALL = 'icons/mob/path',
 		SPRITE_SHEET_SUIT = 'icons/mob/path',
 		SPRITE_SHEET_SUIT_FAT = 'icons/mob/path',
 		SPRITE_SHEET_BELT = 'icons/mob/path'

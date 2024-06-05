@@ -461,6 +461,13 @@
 						to_chat(H, "<span class='warning'>You're too fat to wear the [name].</span>")
 					return 0
 
+		//tall mutation
+		if(isunder(src) ||  istype(src, /obj/item/clothing/suit))
+			if(HAS_TRAIT(H, TRAIT_TALL))
+				if(!(flags & TALLFORALL))
+					if(!disable_warning)
+						to_chat(H, "<span class='warning'>You're too fat to wear the [name]. </span>")
+					return 0
 		switch(slot)
 			if(SLOT_L_HAND)
 				if(H.l_hand)

@@ -55,6 +55,7 @@
 #define SPRITE_SHEET_HELD "held"
 #define SPRITE_SHEET_UNIFORM "uniform"
 #define SPRITE_SHEET_UNIFORM_FAT "uniform_fat"
+#define SPRITE_SHEET_UNIFORM_TALL "uniform_tall"
 #define SPRITE_SHEET_SUIT "suit"
 #define SPRITE_SHEET_SUIT_FAT "suit_fat"
 #define SPRITE_SHEET_BELT "belt"

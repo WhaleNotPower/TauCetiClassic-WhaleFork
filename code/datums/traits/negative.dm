@@ -72,6 +72,28 @@
 		IS_PLANT = FALSE,
 		IS_SYNTHETIC = FALSE,
 	)
+/datum/quirk/tallness
+	name = QUIRK_TALLNESS
+	desc = "Вы худышка"
+	value = 1
+	mob_trait = TRAIT_TALL
+	gain_text = "<span class= 'danger'>Вы ощущаете, как значительно потеряли несколько лишних килограмм.</span>"
+	lose_text = "<span class= 'notice'>Вы снова в форме!</spam>"
+
+	req_species_flags = list(
+		NO_FAT = FALSE,
+		IS_PLANT = FALSE,
+		IS_SYNTHETIC = FALSE,
+	)
+
+/datum/quirk/tallness/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.update_body()
+	H.update_mutations()
+	H.update_inv_w_uniform()
+	H.update_inv_wear_suit()
+	H.update_size_class()
+
 
 /datum/quirk/fatness/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
